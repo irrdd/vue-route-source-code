@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export let _Vue
 
 export default function install(Vue, options) {

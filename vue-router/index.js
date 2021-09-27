@@ -1,8 +1,8 @@
 import install from './install'
 
 class VueRouter {
-    constructor(options){ //传入路由配置对象
-
+    constructor(options) { //传入路由配置对象
+        console.log(options);
     }
 }
 
