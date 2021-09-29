@@ -12,6 +12,8 @@ export default {
     name:'app', 
     mounted(){
         console.log(this._routerRoot._router)
+        console.log(this._routerRoot)
+        console.log(window.location)
     }
 }
 </script>

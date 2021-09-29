@@ -27,5 +27,24 @@ export default function createRouteMap(routes, oldPathMap) {
  * @param {*} parent  当前路由所属的父路由对象
  */
 function addRouteRecord(route, pathMap, parent) {
+    // 处理子路由时，需要做路径拼接
+    let path = parent ? (parent.path + '/' + route.path) : route.path
+        // 构造路由记录对象（还包含其他属性：path、component、parent、name、props、meta、redirect...）
+    let record = {
+        path,
+        component: route.component,
+        parent
+    };
+    // 查重：路由定义不能重复，否则仅第一个生效
+    if (!pathMap[path]) {
+        pathMap[path] = record; // 将当前路由的映射关系存入pathMap
+    }
+    // 递归处理当前路由的子路由
+    if (route.children) {
+        route.children.forEach(childRoute => {
+            addRouteRecord(childRoute, pathMap, record)
+        })
+    }
+
 
 }
