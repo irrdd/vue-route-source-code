@@ -19,7 +19,7 @@ class HashHistory extends History {
         //获取路径的 hash 值
         return getHash()
     }
-    setupListeners() {
+    setupListener() {
         // 当 hash 值变化时，获取新的 hash 值，并进行匹配跳转
         window.addEventListener('hashchange', () => {
             this.transitionTo(getHash())
