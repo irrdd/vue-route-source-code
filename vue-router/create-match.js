@@ -1,5 +1,7 @@
 import createRouteMap from "./create-route-map";
-
+import {
+    createRoute
+} from './history/base'
 /**
  * 路由匹配器函数
  *  对路由配置进行扁平化处理
@@ -11,11 +13,23 @@ import createRouteMap from "./create-route-map";
 
 export default function createMatcher(routes) {
     // 将嵌套数组的路由配置，处理为便于匹配的扁平结构
-    let { pathMap } = createRouteMap(routes)
+    let {
+        pathMap
+    } = createRouteMap(routes)
     console.log("pathMap", pathMap);
     // 创建 match 方法：根据路径进行路由匹配
     function match(location) {
         let record = pathMap[location]
+        // 匹配成功
+        if (record) {
+            return createRoute(record, {
+                path: location,
+            })
+        }
+        // 未匹配到
+        return createRoute(null, {
+            path: location,
+        })
     }
     /**
      * 动态添加路由匹配规则
