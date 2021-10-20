@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import Link from './components/link'
 export let _Vue
 
 export default function install(Vue, options) {
@@ -12,6 +13,7 @@ export default function install(Vue, options) {
                 this._routerRoot = this //为根组件添加 _routerRoot 属性指向根组件自己
                 this._router = this.$options.router // this._router 指向 this.$options.router
                 // 在根组件中，调用路由实例上的 init 方法，完成插件的初始化
+                debugger
                 this._router.init(this) //this 为根实例
                 // 目标：让 this._router.history.current 成为响应式数据；
                 // 作用：current用于渲染时会进行依赖收集，当current更新时可以触发视图更新；
@@ -26,11 +28,31 @@ export default function install(Vue, options) {
             // 这样，所有组件都能够通过 this._routerRoot._router 获取到同一个 router 实例；
         }
     })
-
-    // 注册全局组件：router-link、router-view
-    Vue.component('router-link', {
-        render: h => h('a', {}, '')
+    /**
+     *  在 Vue 原型上添加 $route 属性 -> current 对象
+     *  $route：包含了路由相关的属性
+     */
+    Object.defineProperties(Vue.prototype, "$route", {
+        get() {
+            // this指向当前实例；所有实例上都可以拿到_routerRoot；
+            // 所以，this._routerRoot._route 就是根实例上的 _router
+            // 即：处理根实例时，定义的响应式数据 -> this.current 对象
+            return this._routerRoot._route // 包含：path、matched等路由相关属性
+        }
     })
+    /**
+     *  在 Vue 原型上添加 $router 属性 -> router 实例
+     *  $router：包含了路由相关的方法
+     */
+    Object.defineProperty(Vue.prototype, '$router', {
+        get() {
+            // this._routerRoot._router 就是当前 router 实例；
+            // router 实例中，包含 matcher、push、go、repace 等方法；
+            return this._routerRoot._router;
+        }
+    });
+    // 注册全局组件：router-link、router-view
+    Vue.component('Link')
     Vue.component('router-view', {
         render: h => h('dev', {}, '')
     })

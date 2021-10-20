@@ -18,6 +18,7 @@ export default function createMatcher(routes) {
     } = createRouteMap(routes)
     console.log("pathMap", pathMap);
     // 创建 match 方法：根据路径进行路由匹配
+    //闭包，match在函数内修改pathMap，所以createMatcher没有返回match
     function match(location) {
         let record = pathMap[location]
         // 匹配成功

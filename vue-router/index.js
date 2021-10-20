@@ -50,6 +50,9 @@ class VueRouter {
         // createMatcher.match
         return this.matcher.match(location);
     }
+    push(to){
+        this.history.push(to)
+    }
 
 }
 // 路由初始化方法，供 install 安装时调用
