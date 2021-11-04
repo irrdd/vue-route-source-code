@@ -28,7 +28,7 @@ export default function install(Vue, options) {
             // 这样，所有组件都能够通过 this._routerRoot._router 获取到同一个 router 实例；
         }
     })
-    /**
+    /** 
      *  在 Vue 原型上添加 $route 属性 -> current 对象
      *  $route：包含了路由相关的属性
      */
