@@ -15,7 +15,7 @@ export default function createMatcher(routes) {
     // 将嵌套数组的路由配置，处理为便于匹配的扁平结构
     let {
         pathMap
-    } = createRouteMap(routes)
+    } = createRouteMap(routes) //函数私有变量，不暴露出去，只提供给match使用，
     console.log("pathMap", pathMap);
     // 创建 match 方法：根据路径进行路由匹配
     //闭包，match在函数内修改pathMap，所以createMatcher没有返回match

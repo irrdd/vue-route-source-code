@@ -9,6 +9,10 @@ function ensureSlash() {
     }
     window.location.hash = '/'
 }
+function  getHash(){
+
+    return window.location.hash.replace('#','')
+}
 
 class HashHistory extends History {
     constructor(router) {
@@ -17,6 +21,17 @@ class HashHistory extends History {
         // Hash 模式下，对URL路径进行处理，确保包含'/'
         ensureSlash()
     }
+    // transitionTo(location, onComplete) {
+    //     // 根据路径进行路由匹配；route :当前匹配结果
+    //     let route = this.router.match(location);
+    //     // 查重：如果前后两次路径相同，且路由匹配的结果也相同，那么本次无需进行任何操作
+    //     if (location == this.current.path && route.matched.length == this.current.matched.length) { // 防止重复跳转
+    //       return
+    //     }
+    //     // 使用当前路由route更新current，并执行其他回调
+    //     this.updateRoute(route);
+    //     onComplete && onComplete();
+    //   }
     getCurrentLocation() {
         //获取路径的 hash 值
         return getHash()
@@ -34,9 +49,7 @@ class HashHistory extends History {
             window.location.hash = location // 更新hash值
         })
     }
-    getHash(){
-        return window.location.hash
-    }
+   
 
 }
 export default HashHistory

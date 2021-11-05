@@ -24,6 +24,8 @@ class History {
 
     constructor(router) {
         this.router = router; // 存储子类传入的 router 实例
+        this.current = {}
+        this.current.path = ''
     }
 
     // 根据路径进行路由匹配，并添加路径改变的监听器
@@ -37,6 +39,7 @@ class History {
     transitionTo(location, onComplete) {
         // 根据路径进行路由匹配；route :当前匹配结果
         let route = this.router.match(location)
+        
         // 查重：如果前后两次路径相同，且路由匹配的结果也相同，那么本次无需进行任何操作
         if (location == this.current.path && route.matched.length == this.current.matched.length) { // 防止重复跳转
             return

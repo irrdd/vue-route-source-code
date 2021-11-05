@@ -2,21 +2,21 @@ export default {
     name: 'routerLink',
     props: {
         to: {
-            type: 'string',
+            type: String,
             required: true,
         },
         tag: {
-            type: 'string',
+            type: String,
             default: 'a'
         }
     },
     methods: {
-        handle(to) {
+        handler(to) {
             this.$router.push(to);
         }
     },
-    return () {
-        let {tag, to} = this
-        return <tag onClick={this.handle.bind(this,to)}>{this.$slots.default}</tag>
+    render () {
+        let { tag, to } = this;
+        return <tag onClick={this.handler.bind(this, to)}>{this.$slots.default}</tag>
     }
 }
